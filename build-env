@@ -1,0 +1,9 @@
+#!/bin/sh
+
+docker run -it --rm \
+	-u $(id -u):$(id -g) \
+	-v .:/workdir \
+	-v $HOME/.cache:/.cache \
+	-v $HOME/go:/go \
+	-w /workdir \
+	golang:latest
