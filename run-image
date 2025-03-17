@@ -13,6 +13,7 @@ IMAGE_HOME=/home/user
 
 if [[ $1 != --no-build ]]; then
 	docker build -t $IMAGE_NAME --build-arg ALPINE_VERSION=3.21 .
+else
 	shift
 fi
 
