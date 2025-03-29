@@ -322,7 +322,7 @@ func createWallpaperForScreen(screen Screen, wallpaper string) string {
 }
 
 func setWallpaperForScreen(screenName string, wallpaperOutputPath string) {
-	fmt.Println("\033[31mUpdating output to", screenName, wallpaperOutputPath, "\033[0m")
+	fmt.Println("\033[32mUpdating output to", screenName, wallpaperOutputPath, "\033[0m")
 	swayMsgCommand(IPC_COMMAND, fmt.Sprintf("output \"%s\" bg \"%s\" fit", screenName, wallpaperOutputPath))
 }
 
