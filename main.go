@@ -266,6 +266,7 @@ func createWallpaperForScreen(screen Screen, wallpaper string) string {
 
 	// Draw lock screen image
 	lockScreenFilter := gift.New(
+		gift.Resize(newLockScreenWidth/5, newLockScreenHeight/5, gift.LinearResampling),
 		gift.GaussianBlur(5.0),
 		gift.Resize(newLockScreenWidth, newLockScreenHeight, gift.LinearResampling),
 		gift.CropToSize(screen.Rect.Width, screen.Rect.Height, gift.CenterAnchor),
