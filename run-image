@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [[ -z "$SWAYSOCK" ]]; then
 	echo "SWAYSOCK not set" > /dev/stderr
@@ -11,6 +11,11 @@ PROCESSED_WALLPAPERS_DIR=$HOME/.local/processed-wallpapers
 mkdir -p $PROCESSED_WALLPAPERS_DIR
 IMAGE_HOME=/home/user
 
+CONFIG_FILE_PATH="$HOME/.config/wallpaper-directories"
+if ! [[ -f "$CONFIG_FILE_PATH" ]]; then
+    echo "~/wallpapers" > "$CONFIG_FILE_PATH"
+fi
+
 if [[ $1 != --no-build ]]; then
 	docker build -t $IMAGE_NAME --build-arg ALPINE_VERSION=3.21 .
 else
@@ -19,7 +24,7 @@ fi
 
 INTERACTION=-d
 # INTERACTION="-it --entrypoint /bin/sh"
-INTERACTION=-it
+# INTERACTION=-it
 # --privileged
 
 # -u $(id -u):$(id -g) \
@@ -33,7 +38,7 @@ docker run \
     -v $SWAYSOCK:/tmp/sway.sock \
     -v ${HOME}/wallpapers:${IMAGE_HOME}/wallpapers \
     -v ${PROCESSED_WALLPAPERS_DIR}:${IMAGE_HOME}/.local/processed-wallpapers \
-    -v ${HOME}/.config/wallpaper-directories:${IMAGE_HOME}/.config/wallpaper-directories \
+    -v ${CONFIG_FILE_PATH}:${IMAGE_HOME}/.config/wallpaper-directories \
     $IMAGE_NAME "$@"
 
     # --entrypoint /bin/sh \
